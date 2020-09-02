@@ -6,25 +6,36 @@
 
 let el = document.querySelector("#canvas1");
 let context = el.getContext("2d");
+let position = {x: 0, y: 0};
 let onTouches = new Array();
+context.lineWidth = 1;
+context.strokeStyle = "black";
 
-el.addEventListener("touchmove", function (e) {
-  context.lineWidth = 1;
-  context.strokeStyle = "black";
-  let touches = e.changedTouches; //Object with a lot of position cursor
-  //First loop for first index
-  for (let i = 0; i < e.changedTouches.length; i++) {
-    console.log("Touch move start");
-    onTouches.push(touches);
-    let idx;
-    //Second loop for other index
-    for (let x = 0; x < onTouches.length; x++) {
-      idx = onTouches[x];
-      context.lineTo(idx[i].pageX, idx[i].pageY);
-      context.stroke();
+// el.addEventListener('touchstart', );
+el.addEventListener("touchmove", findAndDrawingPointMove );
+// el.addEventListener("touchend", );
+
+function findPointStart(e){
+
+}
+
+
+function findAndDrawingPointMove (e) {
+    let touches = e.changedTouches; //Object with a lot of position cursor
+
+    //First loop for first index
+    for (let i = 0; i < e.changedTouches.length; i++) {
+        onTouches.push(touches);
+        console.log("Touch move start", position.x, onTouches);
+  
+      //Second loop for other index
+      for (let x = 0; x < onTouches.length; x++) {
+        let idx = onTouches[x];
+        context.lineTo(idx[i].pageX, idx[i].pageY);
+        context.stroke();
+      }
+      context.beginPath();
     }
-    context.beginPath();
-  }
-});
+}
 
 /**---------------------------------------------------------The End--;-)--------------------------------------------------------- */
