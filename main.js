@@ -11,13 +11,13 @@ let onTouches = new Array();
 context.lineWidth = 1;
 context.strokeStyle = "black";
 
-// el.addEventListener('touchstart', );
+el.addEventListener('touchstart', (e)=>{context.beginPath()} );
 el.addEventListener("touchmove", findAndDrawingPointMove );
-// el.addEventListener("touchend", );
+el.addEventListener("touchend",()=>{context.closePath();} );
 
-function findPointStart(e){
+// function findPointStart(e){
 
-}
+// }
 
 
 function findAndDrawingPointMove (e) {
@@ -26,13 +26,15 @@ function findAndDrawingPointMove (e) {
     //First loop for first index
     for (let i = 0; i < e.changedTouches.length; i++) {
         onTouches.push(touches);
-        console.log("Touch move start", position.x, onTouches);
+        console.log("Touch move start", position.x, position.y);
   
       //Second loop for other index
       for (let x = 0; x < onTouches.length; x++) {
         let idx = onTouches[x];
+        if(idx == touches[i].identifier)return i;
         context.lineTo(idx[i].pageX, idx[i].pageY);
         context.stroke();
+       
       }
       context.beginPath();
     }
